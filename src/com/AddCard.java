@@ -9,11 +9,23 @@ import sun.rmi.runtime.Log;
 
 
 public class AddCard {
-	private static final MediaType JSON =MediaType.parse("application/json;charset=utf-8");
-	private JSONObject json = null;
-	private String jsonStr = null;
+
+	private JSONObject json = new JSONObject();
+	private String responseString = null;
 	public AddCard(String deckName,String modelName,JSONObject wordJSONInfo){
-		JSONObject obj1 = new JSONObject();
+		this.confSet(deckName, modelName, wordJSONInfo);
+	}
+	public AddCard(String deckName,String modelName,JSONObject wordJSONInfo,String sentence,String translation){
+		if(sentence!=null&&translation!=null) {
+		wordJSONInfo.put("例句1", sentence);
+		wordJSONInfo.put("例句翻译1", translation);
+		this.confSet(deckName, modelName, wordJSONInfo);
+		}else {
+			this.confSet(deckName, modelName, wordJSONInfo);
+		}
+	}
+	
+	public void confSet(String deckName,String modelName,JSONObject wordJSONInfo) {
 		JSONObject obj2 = new JSONObject();
 		JSONObject obj3 = new JSONObject();
 		JSONArray array = new JSONArray();
@@ -23,29 +35,21 @@ public class AddCard {
 		obj3.put("modelName", modelName);
 		obj3.put("tags", array);
 		obj2.put("note", obj3);
-		obj1.put("params", obj2);
-		obj1.put("action","addNote");
-		System.out.println(obj1);
-		this.jsonStr = obj1.toString();
+		json.put("params", obj2);
+		json.put("action","addNote");
 		this.add();
 	}
 	public boolean add(){
-		OkHttpClient otc = new OkHttpClient();
-		RequestBody requestBody = RequestBody.create(JSON, jsonStr);
-		Request request =new Request.Builder()
-				.url("http://127.0.0.1:8765")
-				.post(requestBody)
-				.build();
-		Response response = null;
-		 try {
-			response=otc.newCall(request).execute();
-			System.out.println(response.body().string());
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			
-		}
-		 return true;
+		postJSON p = new postJSON("http://127.0.0.1:8765",json);
+		if(p.getPostState()) {
+			responseString = p.getResponseString();
+			return true;
+		}else {
+			return false;
+		}	
+	}
+	public String getResponseString() {
+		return responseString;
 	}
 	 
 }

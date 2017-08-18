@@ -1,4 +1,5 @@
 package com;
+
 /*
 	该类传入一个英文单词作为参数，在构造时即调用抓取信息函数抓取信息，组装成JSON格式，使用对外私有的JSONObject对象存储抓取到的JSON格式数据并返回
 */
@@ -11,10 +12,10 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 public class Word {
-	private final static String dictURL = "http://dict.cn/";//目标网址
-	private String word = null;//目标单词
-	private JSONObject obj = new JSONObject();//创建一个JSON对象来存储获取到的信息
-	
+	private final static String dictURL = "http://dict.cn/";// 目标网址
+	private String word = null;// 目标单词
+	private JSONObject obj = new JSONObject();// 创建一个JSON对象来存储获取到的信息
+
 	public Word(String word) {
 		this.word = word;
 		try {
@@ -25,15 +26,17 @@ public class Word {
 			obj = null;
 		}
 	}
+
 	public JSONObject getJSON() {
 		return obj;
 	}
-	//抓取单词信息函数
-	public JSONObject getInfo(){
+
+	// 抓取单词信息函数
+	public JSONObject getInfo() {
 		long endTime, runTime;
 
 		OkHttpClient otc = new OkHttpClient();// 建立Http客户端
-		Request request = new Request.Builder().url(Word.dictURL+this.word).build();// 根据传入的单词建立请求参数
+		Request request = new Request.Builder().url(Word.dictURL + this.word).build();// 根据传入的单词建立请求参数
 		Response response = null;
 		try {
 			response = otc.newCall(request).execute();
@@ -42,12 +45,16 @@ public class Word {
 			e1.printStackTrace();
 			obj.put("error", "客户端连接异常");
 		} // 执行请求
-		
+
+		//
+		if (response.code() != 200) {
+			obj.put("error", "页面连接异常");
+			return obj;
+		}
 		// 如果某个单词没有，目前发现会有两种情况，1：404错误，2：提示要"寻找的是不是"
 		if (response.code() == 404) { // 判断第一种情况404错误
 			obj.put("error", 404);
 			return obj; // 暂时注释
-			// System.out.println(response.code());
 		}
 
 		String responseHTML = null;
@@ -56,10 +63,9 @@ public class Word {
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}// 获取返回的页面字符串
-		// System.out.println(responseHTML);
+		} // 获取返回的页面字符串
 		if (responseHTML.contains("ifufind") || responseHTML.contains("没有找到")) {// 判断第二种找不到的情况
-			obj.put("erroe", "Can't find the word");
+			obj.put("error", "Can't find the word");
 			return obj;
 		} else {
 			// 创建一个JSON对象来存储获取到的信息
@@ -80,17 +86,22 @@ public class Word {
 			String wordProperty, wordValue;
 			Pattern patter, patter2 = null;
 			Matcher matcher, matcher2 = null;
-			String wordPropertyPat = "(<span>.*\\.)";
-			String wordValuePat = "(\\s<strong>.*</strong>)";
+			String wordPropertyPat = "<li>[\\n]*[\\t]*[\\s]*<span>\\w*\\.<";
+			String wordValuePat = "</span>[\\n]*[\\t]*[\\s]*<strong>.*</strong>";
 			patter = Pattern.compile(wordPropertyPat);
 			patter2 = Pattern.compile(wordValuePat);
 			matcher = patter.matcher(responseHTML);
 			matcher2 = patter2.matcher(responseHTML);
 			int i = 1;
 			while (matcher.find() && matcher2.find() && i <= 4) {
-				wordProperty = matcher.group(0).substring(6);
+				startIndex = matcher.group().indexOf("n>");
+				endIndex = matcher.group(0).lastIndexOf("<");
+				wordProperty = matcher.group(0).substring(startIndex + 2, endIndex);
+
+				startIndex = matcher2.group().indexOf("g>");
 				endIndex = matcher2.group(0).lastIndexOf("<");
-				wordValue = matcher2.group(0).substring(9, endIndex);
+				wordValue = matcher2.group(0).substring(startIndex + 2, endIndex);
+				
 				obj.put("词性" + i, wordProperty);
 				obj.put("释义" + i, wordValue);
 				i++;
@@ -127,8 +138,6 @@ public class Word {
 				obj.put("例句翻译" + i, sentenceCN);
 				i++;
 			}
-			obj.put("拓展", "2");
-			obj.put("词组短语", "2");
 			return obj;
 		}
 	}
