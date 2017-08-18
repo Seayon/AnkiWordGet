@@ -1,11 +1,11 @@
 package com;
-
+/*
+	该类传入一个英文单词作为参数，在构造时即调用抓取信息函数抓取信息，组装成JSON格式，使用对外私有的JSONObject对象存储抓取到的JSON格式数据并返回
+*/
 import java.io.IOException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
 import org.json.*;
-
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -28,6 +28,7 @@ public class Word {
 	public JSONObject getJSON() {
 		return obj;
 	}
+	//抓取单词信息函数
 	public JSONObject getInfo(){
 		long endTime, runTime;
 
@@ -126,6 +127,8 @@ public class Word {
 				obj.put("例句翻译" + i, sentenceCN);
 				i++;
 			}
+			obj.put("拓展", "2");
+			obj.put("词组短语", "2");
 			return obj;
 		}
 	}
