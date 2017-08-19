@@ -63,7 +63,7 @@ public class Word {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} // 获取返回的页面字符串
-		if (responseHTML.contains("ifufind") || responseHTML.contains("没有找到")) {// 判断第二种找不到的情况
+		if (responseHTML.contains("ifufind") && responseHTML.contains("您要查找的是不是")) {// 判断第二种找不到的情况
 			obj.put("error", "单词可能拼写错误!");
 			return obj;
 		} else {
