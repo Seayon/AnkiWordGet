@@ -42,8 +42,9 @@ $(document).ready(function(){
 			})
 		
 	})
-	$('form').submit(function()
-	{
-	  return false;
+	$('body').keypress(function(e){
+	if(e.ctrlKey && e.which == 13 || e.which == 10) {
+		$('#submit').click();
+	}
 	});
 })
