@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+
+<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="css/bootstrap-responsive.min.css">
+<link rel="stylesheet" type="text/css" href="css/public.css">
+<title>lit教务查询</title>
+</head>
+<body>
+<div class="container">
+	
+	<div class="signin">
+		<ul class="nav nav-tabs ">
+			<li class="active">
+				<a href="#scoreInfo" data-toggle="tab">卡片添加</a>
+			</li>
+		</ul>
+		<div class="tab-content">
+			<div class="tab-pane active" id="scoreInfo">	
+				<form >
+					<input class="input-block-level" type="text" placeholder="单词" name="word">		
+					<input class="input-block-level" type="text" placeholder="自定义例句1" name="sentence">
+					<input class="input-block-level" type="text" placeholder="自定义例句翻译1" name="translation">
+					<input class="btn btn-large btn-primary scoreInfo" type="submit" value="添加">
+				</form>
+				<div class="sinfo alert"></div>
+				<div class="scoreResult alert"></div>
+			</div>
+		</div>
+	</div>
+</div>
+ <script src="https://code.jquery.com/jquery.js"></script>
+ <script src="js/bootstrap.min.js"></script>
+ <script src="js/public.js"></script>
+</body>
+</html>

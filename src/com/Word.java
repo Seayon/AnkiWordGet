@@ -27,30 +27,29 @@ public class Word {
 		}
 	}
 
-	public JSONObject getJSON() {
+	public JSONObject getWordJSON() {
 		return obj;
 	}
 
 	// 抓取单词信息函数
-	public JSONObject getInfo() {
-		long endTime, runTime;
-
+	private JSONObject getInfo() {
 		OkHttpClient otc = new OkHttpClient();// 建立Http客户端
 		Request request = new Request.Builder().url(Word.dictURL + this.word).build();// 根据传入的单词建立请求参数
 		Response response = null;
+//		obj.put("error", "null");
 		try {
-			response = otc.newCall(request).execute();
+			response = otc.newCall(request).execute();// 执行请求
 		} catch (IOException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
-			obj.put("error", "客户端连接异常");
-		} // 执行请求
+			obj.put("error", "连接到海词网站异常");
+			return obj;
+		} 
 
-		//
 		if (response.code() != 200) {
 			obj.put("error", "页面连接异常");
 			return obj;
 		}
+		
 		// 如果某个单词没有，目前发现会有两种情况，1：404错误，2：提示要"寻找的是不是"
 		if (response.code() == 404) { // 判断第一种情况404错误
 			obj.put("error", 404);
@@ -65,7 +64,7 @@ public class Word {
 			e.printStackTrace();
 		} // 获取返回的页面字符串
 		if (responseHTML.contains("ifufind") || responseHTML.contains("没有找到")) {// 判断第二种找不到的情况
-			obj.put("error", "Can't find the word");
+			obj.put("error", "单词可能拼写错误!");
 			return obj;
 		} else {
 			// 创建一个JSON对象来存储获取到的信息

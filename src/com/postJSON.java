@@ -28,14 +28,13 @@ public class postJSON {
 		try {
 			response = otc.newCall(request).execute();
 			if(response.code()!=200) {
-				return false;
+				postState = false;
 			}
 			responseString = response.body().string();
 			postState = true;
 			return true;
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			responseString = "连接异常";
 			postState = false;
 			return false;
 		}

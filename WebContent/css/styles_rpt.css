@@ -1,0 +1,154 @@
+.scoreResult
+{  
+	font-size: 12px; 
+	COLOR:black;
+
+}
+
+TR.H 
+{	
+	BACKGROUND-COLOR: #f4fef9
+}
+TR.B 
+{	
+	BACKGROUND-COLOR: #ffffff
+}
+white 
+{  
+	font-family: "宋体"; 
+	font-size: 12px; 
+	color: #FFFFCC
+}
+
+TR.T 
+{	
+	BACKGROUND-COLOR: #bfe5d5;
+}
+
+
+.scoreResult TD
+{
+	font-family: "宋体"; 
+	font-size: 12px;
+	height:20;
+	border-left:medium none; 
+	border-top:medium none; 
+	padding-left:3px;
+	padding-right:3px;
+	word-wrap: break-word; 
+	word-break: break-all; 
+}
+
+TD.noborder
+{
+	border-left:  medium none; 
+	border-top:medium none;
+	border-right: medium none; 
+	border-bottom:medium none;
+	padding-left:0px;
+	padding-right:0px;
+}
+
+TD.no-top
+{
+	/*border-left:1px solid*/
+}
+
+TD.only-bottom
+{
+	border-right: medium none;
+}
+
+TD.AT
+{  
+	font-family: "宋体"; 
+	font-size: 12px; color: #2A7CB1;
+	text-decoration: none;
+	cursor: pointer;
+}
+
+TD.AG
+{  
+	font-family: "宋体"; 
+	font-size: 12px; 
+	color: green;
+	text-decoration: none
+}
+
+TD.TTL
+{  
+	font-family: "宋体"; 
+	font-size: 14px; 
+	color: blank;
+}
+
+Span 
+{
+	COLOR: #2A7CB1; 
+	FONT-SIZE: 12px; 
+	TEXT-DECORATION: none;
+	cursor: pointer;
+}
+
+.a 
+{
+	TEXT-DECORATION: underline
+}
+input.but20 
+{
+	font-family: "宋体";
+	font-size: 12px;
+	border: none;
+	cursor: pointer;	
+	background-image: url(../images/button/bgbtn2_0.gif);
+	height: 20px;
+	width: 40px;
+}
+
+input.but30 
+{
+	font-family: "宋体";
+	font-size: 12px;
+	border: none;
+	cursor: pointer;	
+	background-image: url(../images/button/bgbtn3_0.gif);
+	height: 20px;
+	width: 47px
+}
+
+
+input.but40 
+{
+	font-family: "宋体";
+	font-size: 12px;
+	border: none;
+	cursor: pointer;	
+	background-image: url(../images/button/bgbtn4_0.gif);
+	height: 20px;
+	width: 62px
+}
+
+div.newPage
+{
+	width:0px; 
+	height:0px; 
+	page-break-after:always; 
+	border-bottom-style solid;
+	
+	
+	
+}
+
+TD.print
+{
+	font-family: "宋体"; 
+	font-size: 12px;
+	height:20;
+	border-left:medium none;
+	border-top:medium none;
+	border-width:1px; 
+	word-wrap: break-word; 
+	word-break: break-all;
+	padding-left:0px;
+	padding-right:0px
+}
