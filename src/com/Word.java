@@ -53,7 +53,7 @@ public class Word {
 		// 如果某个单词没有，目前发现会有两种情况，1：404错误，2：提示要"寻找的是不是"
 		if (response.code() == 404) { // 判断第一种情况404错误
 			obj.put("error", 404);
-			return obj; // 暂时注释
+			return obj; 
 		}
 
 		String responseHTML = null;

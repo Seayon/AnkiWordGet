@@ -16,5 +16,6 @@
 	<classpathentry kind="lib" path="C:/Users/15366/OneDrive/JavaStudyFiles/Java库/JSON/json-20170516.jar"/>
 	<classpathentry kind="lib" path="C:/Users/15366/OneDrive/JavaStudyFiles/Java库/OKhttp/okhttp-3.8.1.jar"/>
 	<classpathentry kind="lib" path="C:/Users/15366/OneDrive/JavaStudyFiles/Java库/OKio/okio-1.13.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/15366/OneDrive/JavaStudyFiles/Java库/gradle-wrapper.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
