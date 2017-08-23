@@ -12,13 +12,19 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
+import word.Word91;
+import word.WordHaici;
+import word.WordHaiciMini;
 
 public class App {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		Word91 w = new Word91("like");
-		
+//		Word91 w = new Word91("like");
+		WordHaiciMini p = new WordHaiciMini("like");
+//		WordHaici p = new WordHaici("like");
+//		System.out.println(p.getWordJSONInfo());
+		System.out.println(p.getDictURL());
 //		String word = "ground";
 //		String sentence = "And which are,therefore,extremely popular subjects of taxation";
 //		String translation = "因此，也成为了征税的绝佳对象";

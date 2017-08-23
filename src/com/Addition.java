@@ -29,7 +29,6 @@ public class Addition extends HttpServlet {
 		String word = request.getParameter("word");
 		String sentence = request.getParameter("sentence");
 		String translation = request.getParameter("translation");
-
 		
 		AddCard addCard = new AddCard("Temp","单词-经典修改",word,sentence,translation);
 		if(addCard.getWordJSONInfo().has("error")) {

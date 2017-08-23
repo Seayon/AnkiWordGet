@@ -1,4 +1,4 @@
-package com;
+package word;
 
 import org.json.JSONObject;
 import java.io.IOException;
@@ -10,11 +10,12 @@ import okhttp3.Request;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
 
-public class Word91 extends WordAbstract {
-	private String dictURL = "http://www.91dict.com/words?w=";// 海词词典的Mini词典连接
+public class Word91 extends Word {
+	private final String dictURL = "http://www.91dict.com/words?w=";// 91人人词典的链接
 	private String responseHTML = null;
 	private Response response = null;
 	public Word91(String word) {
+		super.dictURL = dictURL;
 		this.word = word;
 		try {
 			this.wordJSONInfo = wordInfoCapture();
@@ -26,7 +27,7 @@ public class Word91 extends WordAbstract {
 
 	// 实现
 	protected JSONObject wordInfoCapture() {
-		// 此处
+		
 		OkHttpClient okHttpClient = new OkHttpClient();
 		Request request = new Request.Builder().url(dictURL + word).build();
 		try {
@@ -42,18 +43,15 @@ public class Word91 extends WordAbstract {
 			e.printStackTrace();
 			return wordJSONInfo;
 		}
-		if (response.code() != 200) {//判断连接是否正常
+
+		if (response.code() != 200) {// 判断连接是否正常
 			wordJSONInfo.put("error", "连接到海词网站异常");
-			return wordJSONInfo;
-		}
-		if (responseHTML.contains("要查找的是不是")) {// 如果某个单词没有，在使用Mini海词版本的话，由于单词输入错误的模糊匹配是前端js动态请求服务器计算返回的，故此处只会提示“您要查找的是不是”
+		} else if (responseHTML.contains("要查找的是不是")) {// 如果某个单词没有，在使用Mini海词版本的话，由于单词输入错误的模糊匹配是前端js动态请求服务器计算返回的，故此处只会提示“您要查找的是不是”
 			wordJSONInfo.put("error", "没有找到该单词");
-			return wordJSONInfo;
-		}else {
-			this.wordJSONInfo.put("error", "没有找到该单词");
+		} else {
+//			System.out.println(responseHTML);
+			System.out.println(regexWith(responseHTML, "上文"));
 		}
-		
-		System.out.println(responseHTML);
 		return wordJSONInfo;
 
 	}

@@ -2,6 +2,8 @@ package com;
 
 import org.json.*;
 
+import word.WordHaici;
+
 public class AddCard {
 
 	private JSONObject json = new JSONObject();//存储添加单词需要POST的数据的JSON对象
@@ -10,12 +12,12 @@ public class AddCard {
 	private boolean addState = false;//页面响应信息
 	//构造函数，根据传入参数立即调用抓取函数获得信息
 	public AddCard(String deckName,String modelName,String word){
-		wordJSONInfo = (new Word(word).getWordJSON());//根据传入的单词获取单词JSON格式的信息
+		wordJSONInfo = (new WordHaici(word).getWordJSONInfo());//根据传入的单词获取单词JSON格式的信息
 		this.confSet(deckName, modelName, wordJSONInfo);
 	}
 	//重载构造函数，如果用户有自定义例句1和例句翻译1就执行这个
 	public AddCard(String deckName,String modelName,String word,String sentence,String translation){
-		this.wordJSONInfo = (new Word(word).getWordJSON());
+		this.wordJSONInfo = (new WordHaici(word).getWordJSONInfo());
 		if(sentence!=null&&translation!=null) {//有可能传入空值
 		wordJSONInfo.put("例句1", sentence);
 		wordJSONInfo.put("例句翻译1", translation);
