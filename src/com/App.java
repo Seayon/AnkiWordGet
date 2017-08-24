@@ -21,10 +21,14 @@ public class App {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 //		Word91 w = new Word91("like");
-		WordHaiciMini p = new WordHaiciMini("like");
-//		WordHaici p = new WordHaici("like");
+//		long time = System.currentTimeMillis();
+//		WordHaiciMini p = new WordHaiciMini("like");
+//		System.out.println(System.currentTimeMillis()-time);
+//		time = System.currentTimeMillis();
+		WordHaici p2 = new WordHaici("ground");
+//		System.out.println(System.currentTimeMillis()-time);
 //		System.out.println(p.getWordJSONInfo());
-		System.out.println(p.getDictURL());
+		System.out.println(p2.getWordJSONInfo());
 //		String word = "ground";
 //		String sentence = "And which are,therefore,extremely popular subjects of taxation";
 //		String translation = "因此，也成为了征税的绝佳对象";

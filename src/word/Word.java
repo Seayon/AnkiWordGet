@@ -14,10 +14,10 @@ abstract class Word {
 	protected String dictURL;//抓取单词的目标页面地址
 	protected String word;//要抓取的单词
 	protected String[] soundMark;//单词音标
-	protected String[] wordProperty;
-	protected String[] wordValue;
-	protected String[] sentenceEN;
-	protected String[] sentenceCN;
+	protected String[] wordProperty = new String[10];
+	protected String[] wordValue = new String[10];
+	protected String[] sentenceEN = new String[10];
+	protected String[] sentenceCN = new String[10];
 	protected JSONObject wordJSONInfo = new JSONObject();//用来存储单词信息的JSON对象
 	protected String responseHTML;//请求的时候用来存储目标网页响应HTML字符串
 	protected Response response;//响应Response对象
@@ -29,6 +29,9 @@ abstract class Word {
 	}
 	public JSONObject getWordJSONInfo() {
 		return this.wordJSONInfo;
+	}
+	public String getWord() {
+		return this.word;
 	}
 	//封装的正则提取函数
 	protected String[] regexWith(String source,String regexPat) {

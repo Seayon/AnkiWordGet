@@ -12,13 +12,17 @@ public class WordHaici extends Word {
 	private final static String dictURL = "http://dict.cn/";// 目标网址
 
 	public WordHaici(String word) {
-		super.dictURL = dictURL;
-		this.word = word;
-		try {
-			this.wordJSONInfo = wordInfoCapture();
-		} catch (Exception e) {
-			e.printStackTrace();
-			wordJSONInfo = null;
+		if (word.replaceAll(" ", "").equals("")) {
+			wordJSONInfo.put("error", "请勿传入空值");
+		} else {
+			super.dictURL = dictURL;
+			this.word = word;
+			try {
+				this.wordJSONInfo = wordInfoCapture();
+			} catch (Exception e) {
+				e.printStackTrace();
+				wordJSONInfo = null;
+			}
 		}
 	}
 
@@ -63,7 +67,7 @@ public class WordHaici extends Word {
 			String soundMarkPat = "[美|英]\\n.*EN-US.*</bdo>";
 			soundMark = regexWith(responseHTML, soundMarkPat);
 			int i = 1;
-			while (soundMark[i] != null) {
+			while (soundMark[i] != null && i < 8) {
 				startIndex = soundMark[i].indexOf(">");
 				endIndex = soundMark[i].lastIndexOf("<");
 				wordJSONInfo.put("音标" + i, soundMark[i].substring(startIndex + 1, endIndex));
@@ -75,7 +79,7 @@ public class WordHaici extends Word {
 			wordProperty = regexWith(responseHTML, wordPropertyPat);
 			wordValue = regexWith(responseHTML, wordValuePat);
 			i = 1;
-			while (wordProperty[i] != null && wordValue[i] != null) {
+			while (wordProperty[i] != null && wordValue[i] != null && i < 8) {
 				startIndex = wordProperty[i].indexOf("n>");
 				endIndex = wordProperty[i].lastIndexOf("<");
 				wordJSONInfo.put("词性" + i, wordProperty[i].substring(startIndex + 2, endIndex));
@@ -92,7 +96,7 @@ public class WordHaici extends Word {
 			sentenceEN = regexWith(responseHTML, sentenceENPat);
 			sentenceCN = regexWith(responseHTML, sentenceCNPat);
 			i = 1;
-			while (sentenceEN[i] != null && sentenceCN[i] != null  && i < 10) {
+			while (sentenceEN[i] != null && sentenceCN[i] != null && i < 8) {
 				endIndex = sentenceEN[i].lastIndexOf("<");
 				wordJSONInfo.put("例句" + i, sentenceEN[i].substring(4, endIndex));
 				endIndex = sentenceCN[i].lastIndexOf("<");
@@ -100,7 +104,6 @@ public class WordHaici extends Word {
 				i++;
 			}
 		}
-		System.out.println(wordJSONInfo);
 		return wordJSONInfo;
 	}
 
